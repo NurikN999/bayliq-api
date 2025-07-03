@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Bank;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,10 @@ class CardFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->name(),
+            'balance' => fake()->randomFloat(2, 0, 1000000),
+            'currency' => fake()->currencyCode(),
+            'bank_id' => Bank::factory(),
         ];
     }
 }
