@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace App\Services\API\Auth;
 
+use App\Http\Resources\API\V1\User\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -22,7 +23,7 @@ class AuthService
             $user = Auth::user();
 
             return [
-                'user' => $user,
+                'user' => new UserResource($user),
                 'token' => JWTAuth::fromUser($user),
             ];
 
@@ -37,7 +38,7 @@ class AuthService
             $user = User::create($data);
 
             return [
-                'user' => $user,
+                'user' => new UserResource($user),
                 'token' => JWTAuth::fromUser($user),
             ];
         } catch (\Exception $exception) {
