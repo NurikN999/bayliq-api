@@ -6,18 +6,22 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\LoginUserRequest;
 use App\Http\Requests\API\V1\RegisterUserRequest;
 use App\Services\API\Auth\AuthService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
     public function __construct(
-        private AuthService $authService
+        private readonly AuthService $authService
     )
     {
 
     }
 
-    public function register(RegisterUserRequest $request)
+    /**
+     * @throws \Exception
+     */
+    public function register(RegisterUserRequest $request): JsonResponse
     {
         $data = $this->authService->register($request->validated());
 
@@ -28,7 +32,10 @@ class AuthController extends Controller
         );
     }
 
-    public function login(LoginUserRequest $request)
+    /**
+     * @throws \Exception
+     */
+    public function login(LoginUserRequest $request): JsonResponse
     {
         $data = $this->authService->login($request->validated());
 
