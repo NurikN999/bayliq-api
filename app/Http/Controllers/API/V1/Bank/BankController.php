@@ -12,8 +12,7 @@ class BankController extends Controller
 {
     public function __construct(
         private readonly BankService $bankService
-    )
-    {
+    ) {
 
     }
 
