@@ -22,10 +22,7 @@ class AuthService
 
             $user = Auth::user();
 
-            return [
-                'user' => new UserResource($user),
-                'token' => JWTAuth::fromUser($user),
-            ];
+            return $this->userResponseData($user, JWTAuth::fromUser($user));
 
         } catch (\Exception $exception) {
             throw new \Exception($exception->getMessage());
@@ -37,12 +34,17 @@ class AuthService
         try {
             $user = User::create($data);
 
-            return [
-                'user' => new UserResource($user),
-                'token' => JWTAuth::fromUser($user),
-            ];
+            return $this->userResponseData($user, JWTAuth::fromUser($user));
         } catch (\Exception $exception) {
             throw new \Exception($exception->getMessage());
         }
+    }
+
+    private function userResponseData(User $user, string $token): array
+    {
+        return [
+            'user' => new UserResource($user),
+            'token' => $token,
+        ];
     }
 }
