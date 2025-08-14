@@ -20,6 +20,8 @@ class CardService
             $card->balance = $cardDTO->getBalance();
             $card->currency = $cardDTO->getCurrency();
             $card->bank_id = $cardDTO->getBankId();
+            $card->created_at = now();
+            $card->updated_at = now();
             $card->save();
 
             $card->users()->attach(Auth::user()->id);
