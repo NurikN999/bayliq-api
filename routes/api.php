@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\V1\Auth\AuthController;
 use App\Http\Controllers\API\V1\Bank\BankController;
+use App\Http\Controllers\API\V1\Card\CardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,11 @@ Route::prefix('v1')->group(function () {
     Route::middleware('jwt.auth')->group(function () {
         Route::prefix('banks')->group(function () {
             Route::get('/', [BankController::class, 'index']);
+        });
+
+        Route::prefix('cards')->group(function () {
+            Route::get('/', [CardController::class, 'index']);
+            Route::post('/', [CardController::class, 'store']);
         });
     });
 });
