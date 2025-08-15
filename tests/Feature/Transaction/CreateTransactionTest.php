@@ -60,5 +60,18 @@ class CreateTransactionTest extends TestCase
             ]);
 
         $response->assertStatus(201);
+
+        $this->assertDatabaseHas('transactions', [
+            'card_id' => $card->id,
+            'type' => TransactionType::EXPENSE->value,
+            'category_id' => $this->category->id,
+            'amount' => 7000,
+        ]);
+
+        $this->assertDatabaseHas('cards', [
+            'id' => $card->id,
+            'name' => $card->name,
+            'balance' => $card->balance - 7000,
+        ]);
     }
 }
