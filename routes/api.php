@@ -4,6 +4,7 @@ use App\Http\Controllers\API\V1\Auth\AuthController;
 use App\Http\Controllers\API\V1\Bank\BankController;
 use App\Http\Controllers\API\V1\Card\CardController;
 use App\Http\Controllers\API\V1\Category\CategoryController;
+use App\Http\Controllers\API\V1\Goal\GoalController;
 use App\Http\Controllers\API\V1\Transaction\TransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,11 @@ Route::prefix('v1')->group(function () {
 
         Route::prefix('categories')->group(function () {
             Route::get('/', [CategoryController::class, 'index']);
+        });
+
+        Route::prefix('goals')->group(function () {
+            Route::post('/', [GoalController::class, 'store']);
+            Route::get('/{user}', [GoalController::class, 'getUserGoals']);
         });
     });
 });
