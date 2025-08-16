@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\API\V1\Goal;
 
+use App\Application\Goals\DTO\ContributeGoalDTO;
 use App\Application\Goals\DTO\CreateGoalDTO;
 use App\Application\Goals\Services\GoalApplicationService;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\V1\Goal\ContributeGoalRequest;
 use App\Http\Requests\API\V1\Goal\StoreGoalRequest;
+use App\Http\Requests\API\V1\Goal\UpdateGoalRequest;
 use App\Http\Resources\API\V1\Goal\GoalResource;
 use App\Models\Goal;
 use App\Models\User;
@@ -47,6 +50,35 @@ class GoalController extends Controller
         return $this->successResponse(
             data: GoalResource::collection($goals),
             message: 'Goals retrieved successfully',
+            status: 200
+        );
+    }
+
+    public function update(UpdateGoalRequest $request, Goal $goal): JsonResponse
+    {
+        $goal = $this->goalApplicationService->update($request->validated(), $goal);
+
+        return $this->successResponse(
+            data: new GoalResource($goal),
+            message: 'Goal successfully updated',
+            status: 200
+        );
+    }
+
+    public function contribute(ContributeGoalRequest $request, User $user): JsonResponse
+    {
+        if ($user->id !== Auth::user()->id) {
+            return $this->errorResponse(
+                message: 'You do not have permission to access this resource',
+                status: 403
+            );
+        }
+
+        $goal = $this->goalApplicationService->contribute(ContributeGoalDTO::fromRequest($request));
+
+        return $this->successResponse(
+            data: new GoalResource($goal),
+            message: 'Goal contributed successfully',
             status: 200
         );
     }

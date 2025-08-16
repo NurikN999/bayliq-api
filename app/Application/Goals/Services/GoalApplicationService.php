@@ -6,7 +6,7 @@ namespace App\Application\Goals\Services;
 
 use App\Application\Goals\DTO\ContributeGoalDTO;
 use App\Application\Goals\DTO\CreateGoalDTO;
-use App\Domain\Goals\Entities\Goal;
+use App\Domain\Goals\Entities\GoalEntity;
 use App\Domain\Goals\ValueObjects\Money;
 use App\Domain\Goals\Enums\GoalPriority;
 use App\Models\Goal as GoalModel;
@@ -27,16 +27,24 @@ class GoalApplicationService
         ]);
     }
 
+    public function update(array $data, GoalModel $goal): GoalModel
+    {
+        $goal->fill($data);
+        $goal->save();
+
+        return $goal;
+    }
+
     public function contribute(ContributeGoalDTO $dto): GoalModel
     {
         $goalModel = GoalModel::findOrFail($dto->goalId);
 
-        $goal = new Goal(
+        $goal = new GoalEntity(
             title: $goalModel->title,
-            targetAmount: new Money($goalModel->target_amount),
-            savedAmount: new Money($goalModel->saved_amount),
+            targetAmount: new Money((float) $goalModel->target_amount),
+            savedAmount: new Money((float) $goalModel->saved_amount),
             deadline: $goalModel->deadline ? Carbon::parse($goalModel->deadline) : null,
-            priority: GoalPriority::from($goalModel->priority),
+            priority: GoalPriority::from($goalModel->priority->value),
             isCompleted: $goalModel->is_completed
         );
 

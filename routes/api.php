@@ -35,7 +35,9 @@ Route::prefix('v1')->group(function () {
 
         Route::prefix('goals')->group(function () {
             Route::post('/', [GoalController::class, 'store']);
+            Route::patch('/{goal}', [GoalController::class, 'update']);
             Route::get('/{user}', [GoalController::class, 'getUserGoals']);
+            Route::post('/{user}/contribute', [GoalController::class, 'contribute']);
         });
     });
 });

@@ -5,7 +5,7 @@ use App\Domain\Goals\Enums\GoalPriority;
 use App\Domain\Goals\ValueObjects\Money;
 use Carbon\Carbon;
 
-class Goal
+class GoalEntity
 {
     public function __construct(
         private string $title,
