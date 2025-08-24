@@ -5,6 +5,7 @@ use App\Http\Controllers\API\V1\Bank\BankController;
 use App\Http\Controllers\API\V1\Card\CardController;
 use App\Http\Controllers\API\V1\Category\CategoryController;
 use App\Http\Controllers\API\V1\Goal\GoalController;
+use App\Http\Controllers\API\V1\Loan\LoanController;
 use App\Http\Controllers\API\V1\Transaction\TransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +40,13 @@ Route::prefix('v1')->group(function () {
             Route::patch('/{goal}', [GoalController::class, 'update']);
             Route::get('/{user}', [GoalController::class, 'getUserGoals']);
             Route::post('/{user}/contribute', [GoalController::class, 'contribute']);
+        });
+
+        Route::prefix('loans')->group(function () {
+            Route::post('/', [LoanController::class, 'store']);
+            Route::get('/', [LoanController::class, 'index']);
+            Route::post('/{loan}/pay', [LoanController::class, 'pay']);
+            Route::get('/{loan}', [LoanController::class, 'show']);
         });
     });
 });
