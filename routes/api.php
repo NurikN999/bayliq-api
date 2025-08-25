@@ -24,6 +24,7 @@ Route::prefix('v1')->group(function () {
         Route::prefix('cards')->group(function () {
             Route::get('/', [CardController::class, 'index']);
             Route::post('/', [CardController::class, 'store']);
+            Route::get('/{card}', [CardController::class, 'show']);
         });
 
         Route::prefix('transactions')->group(function () {

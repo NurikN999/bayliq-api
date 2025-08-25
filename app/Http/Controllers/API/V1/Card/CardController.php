@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1\Card;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\Card\StoreCardRequest;
 use App\Http\Resources\API\V1\Card\CardResource;
+use App\Models\Card;
 use App\Services\API\Card\CardService;
 use App\Services\API\Card\DTO\CardDTO;
 use Illuminate\Http\JsonResponse;
@@ -36,6 +37,16 @@ class CardController extends Controller
             data: new CardResource($card),
             message: 'Card created successfully',
             status: 201
+        );
+    }
+
+    public function show(Card  $card): JsonResponse
+    {
+        $card->load('transactions');
+
+        return $this->successResponse(
+            data: new CardResource($card),
+            message: 'Card retrieved successfully',
         );
     }
 }

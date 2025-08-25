@@ -3,6 +3,7 @@
 namespace App\Http\Resources\API\V1\Card;
 
 use App\Http\Resources\API\V1\Bank\BankResource;
+use App\Http\Resources\API\V1\Transaction\TransactionResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -20,7 +21,8 @@ class CardResource extends JsonResource
             'name' => $this->name,
             'balance' => $this->balance,
             'currency' => $this->currency,
-            'bank' => new BankResource($this->bank)
+            'bank' => new BankResource($this->bank),
+            'transactions' => TransactionResource::collection($this->whenLoaded('transactions')),
         ];
     }
 }
