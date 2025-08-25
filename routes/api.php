@@ -4,6 +4,7 @@ use App\Http\Controllers\API\V1\Auth\AuthController;
 use App\Http\Controllers\API\V1\Bank\BankController;
 use App\Http\Controllers\API\V1\Card\CardController;
 use App\Http\Controllers\API\V1\Category\CategoryController;
+use App\Http\Controllers\API\V1\Currency\CurrencyController;
 use App\Http\Controllers\API\V1\Goal\GoalController;
 use App\Http\Controllers\API\V1\Loan\LoanController;
 use App\Http\Controllers\API\V1\Transaction\TransactionController;
@@ -48,6 +49,10 @@ Route::prefix('v1')->group(function () {
             Route::get('/', [LoanController::class, 'index']);
             Route::post('/{loan}/pay', [LoanController::class, 'pay']);
             Route::get('/{loan}', [LoanController::class, 'show']);
+        });
+
+        Route::prefix('currencies')->group(function () {
+            Route::get('/', [CurrencyController::class, 'index']);
         });
     });
 });

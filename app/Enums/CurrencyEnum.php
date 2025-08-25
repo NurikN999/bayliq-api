@@ -10,14 +10,23 @@ enum CurrencyEnum: string
     case KZT  = 'kzt';
     case EUR = 'eur';
 
+    public static function titles(): array
+    {
+        return [
+            self::USD->value => 'USD',
+            self::KZT->value => 'KZT',
+            self::EUR->value => 'EUR',
+        ];
+    }
+
     public static function all(): array
     {
         $data = [];
 
-        foreach (self::cases() as $key => $value) {
+        foreach (self::cases() as $item) {
             $data[] = [
-                'id' => $key,
-                'value' => $value,
+                'id' => $item->value,
+                'value' => self::titles()[$item->value],
             ];
         }
 
