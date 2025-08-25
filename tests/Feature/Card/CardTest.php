@@ -6,6 +6,7 @@ use App\Enums\CurrencyEnum;
 use App\Models\Bank;
 use App\Models\Card;
 use App\Models\User;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -13,7 +14,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class CardTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
     private $bank;
 

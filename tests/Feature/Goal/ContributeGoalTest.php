@@ -5,6 +5,7 @@ namespace Tests\Feature\Goal;
 use App\Domain\Goals\Enums\GoalPriority;
 use App\Models\Goal;
 use App\Models\User;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -12,6 +13,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class ContributeGoalTest extends TestCase
 {
+    use DatabaseTransactions;
     /**
      * @test
      */
