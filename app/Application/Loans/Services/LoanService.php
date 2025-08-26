@@ -23,7 +23,7 @@ class LoanService
             'monthly_payment' => $createLoanDTO->monthlyPayment,
             'interest_rate'   => $createLoanDTO->interestRate,
             'paid_amount'     => $createLoanDTO->paidAmount,
-            'due_date'        => $createLoanDTO->dueDate?->toDateString(),
+            'due_date'        => $createLoanDTO->dueDate ?? Carbon::now()->addMonths(12),
             'is_closed'       => false,
         ]);
     }

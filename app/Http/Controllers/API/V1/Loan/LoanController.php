@@ -41,7 +41,9 @@ class LoanController extends Controller
 
     public function index(): JsonResponse
     {
-        $loans = Loan::with('user')->get();
+        $loans = Loan::query()
+            ->where('user_id', Auth::id())
+            ->get();
 
         return $this->successResponse(
             data: LoanResource::collection($loans),

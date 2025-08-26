@@ -16,7 +16,7 @@ readonly class CreateLoanDTO
         public float   $monthlyPayment,
         public ?float   $paidAmount,
         public float   $interestRate,
-        public ?Carbon $dueDate
+        public ?string $dueDate
     ) {}
 
     public static function fromRequest(FormRequest $request): self
