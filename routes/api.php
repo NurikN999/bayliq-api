@@ -10,6 +10,7 @@ use App\Http\Controllers\API\V1\Loan\LoanController;
 use App\Http\Controllers\API\V1\Transaction\TransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\V1\AiLog\AiLogController;
 
 Route::prefix('v1')->group(function () {
     Route::prefix('auth')->group(function () {
@@ -55,6 +56,11 @@ Route::prefix('v1')->group(function () {
 
         Route::prefix('currencies')->group(function () {
             Route::get('/', [CurrencyController::class, 'index']);
+        });
+
+        Route::prefix('ai')->group(function () {
+            Route::get('/', [AiLogController::class, 'index']);
+            Route::post('/ask', [AiLogController::class, 'ask']);
         });
     });
 });

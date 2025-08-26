@@ -62,4 +62,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(Loan::class);
     }
+
+    public function ai_logs(): HasMany
+    {
+        return $this->hasMany(AiLog::class);
+    }
 }

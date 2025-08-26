@@ -13,6 +13,9 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
+    'openai' => [
+        'token' => env('OPENAI_API_TOKEN'),
+    ],
 
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
