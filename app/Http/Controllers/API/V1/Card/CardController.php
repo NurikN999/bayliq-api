@@ -42,7 +42,7 @@ class CardController extends Controller
 
     public function show(Card  $card): JsonResponse
     {
-        $card->load('transactions');
+        $card->load('transactions', 'transactions.category');
 
         return $this->successResponse(
             data: new CardResource($card),

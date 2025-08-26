@@ -46,7 +46,7 @@ class TransactionController extends Controller
             );
         }
 
-        $transactions = Transaction::with(['user', 'card'])
+        $transactions = Transaction::with(['user', 'card', 'category'])
             ->where('user_id', $user->id)
             ->get();
 
