@@ -30,6 +30,7 @@ Route::prefix('v1')->group(function () {
 
         Route::prefix('transactions')->group(function () {
             Route::post('/', [TransactionController::class, 'store']);
+            Route::get('/types', [TransactionController::class, 'transactionTypes']);
             Route::get('/{user}', [TransactionController::class, 'getUserTransactions']);
         });
 

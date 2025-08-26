@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1\Transaction;
 
 use App\Application\Transactions\DTO\CreateTransactionDTO;
 use App\Application\Transactions\Services\TransactionService;
+use App\Domain\Transactions\ValueObjects\TransactionType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\Transaction\StoreTransactionRequest;
 use App\Http\Resources\API\V1\Transaction\TransactionResource;
@@ -52,6 +53,17 @@ class TransactionController extends Controller
         return $this->successResponse(
             data: TransactionResource::collection($transactions),
             message: 'Transactions retrieved successfully.',
+            status: 200
+        );
+    }
+
+    public function transactionTypes(): JsonResponse
+    {
+        $transactionTypes = TransactionType::all();
+
+        return $this->successResponse(
+            data: $transactionTypes,
+            message: 'Transaction types retrieved successfully.',
             status: 200
         );
     }

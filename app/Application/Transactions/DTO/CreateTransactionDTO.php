@@ -17,7 +17,7 @@ readonly class CreateTransactionDTO
         private float           $amount,
         private TransactionType $type,
         private ?string         $note,
-        private Carbon          $transactionAt,
+        private string          $transactionAt,
     ) {}
 
     public static function fromRequest(FormRequest $request): self
@@ -39,5 +39,5 @@ readonly class CreateTransactionDTO
     public function getAmount(): float { return $this->amount; }
     public function getType(): TransactionType { return $this->type; }
     public function getNote(): ?string { return $this->note; }
-    public function getTransactionAt(): Carbon { return $this->transactionAt; }
+    public function getTransactionAt(): string { return $this->transactionAt; }
 }
