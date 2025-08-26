@@ -12,7 +12,7 @@ readonly class CreateGoalDTO
         public readonly string $userId,
         public readonly string $title,
         public readonly float $targetAmount,
-        public readonly ?Carbon $deadline,
+        public readonly ?string $deadline,
         public readonly GoalPriority $priority
     ) {}
 

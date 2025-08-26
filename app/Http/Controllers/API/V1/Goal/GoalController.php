@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1\Goal;
 use App\Application\Goals\DTO\ContributeGoalDTO;
 use App\Application\Goals\DTO\CreateGoalDTO;
 use App\Application\Goals\Services\GoalApplicationService;
+use App\Domain\Goals\Enums\GoalPriority;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\Goal\ContributeGoalRequest;
 use App\Http\Requests\API\V1\Goal\StoreGoalRequest;
@@ -79,6 +80,17 @@ class GoalController extends Controller
         return $this->successResponse(
             data: new GoalResource($goal),
             message: 'Goal contributed successfully',
+            status: 200
+        );
+    }
+
+    public function priorities(): JsonResponse
+    {
+        $priorities = GoalPriority::all();
+
+        return $this->successResponse(
+            data: $priorities,
+            message: 'Goals priorities retrieved successfully',
             status: 200
         );
     }

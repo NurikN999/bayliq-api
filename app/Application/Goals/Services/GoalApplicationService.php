@@ -21,7 +21,7 @@ class GoalApplicationService
             'title'         => $dto->title,
             'target_amount' => $dto->targetAmount,
             'saved_amount'  => 0,
-            'deadline'      => $dto->deadline?->toDateString(),
+            'deadline'      => $dto->deadline ?? Carbon::now()->addMonths(12),
             'priority'      => $dto->priority->value,
             'is_completed'  => false,
         ]);
