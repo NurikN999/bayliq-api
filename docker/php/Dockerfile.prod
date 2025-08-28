@@ -1,0 +1,33 @@
+FROM php:8.3-fpm
+
+RUN apt-get update && apt-get install -y \
+    git \
+    libpq-dev \
+    libzip-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libxml2-dev \
+    libicu-dev \
+    zip \
+    unzip \
+    locales \
+    libonig-dev \
+    libssl-dev \
+    && docker-php-ext-install pdo pdo_pgsql pgsql zip gd intl opcache
+
+# Set locales
+RUN sed -i -e 's/# ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/' /etc/locale.gen && locale-gen
+ENV LANG ru_RU.UTF-8
+ENV LANGUAGE ru_RU:ru
+ENV LC_ALL ru_RU.UTF-8
+
+# Install Composer
+COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
+
+WORKDIR /var/www/bayliq-api
+
+# Убедись, что код скопируется при CI/CD
+# COPY . .
+
+CMD ["php-fpm"]

@@ -1,0 +1,54 @@
+version: '3.9'
+
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: bayliq-api-nginx
+    restart: always
+    volumes:
+      - ./:/var/www/bayliq-api
+      - ./docker/nginx/prod.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+      - postgres
+    ports:
+      - 80:80
+
+  php:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile.prod
+    container_name: bayliq-api-php
+    restart: always
+    volumes:
+      - ./:/var/www/bayliq-api
+      - ./docker/php/prod-php.ini:/usr/local/etc/php/conf.d/php.ini
+    depends_on:
+      - redis
+      - postgres
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: bayliq-api-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: bayliq_db
+      POSTGRES_USER: bayliq_user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_bayliq-api:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  redis:
+    image: redis:7-alpine
+    container_name: bayliq-api-redis
+    restart: always
+    volumes:
+      - redis_bayliq-api:/data
+    ports:
+      - 6379:6379
+
+volumes:
+  postgres_bayliq-api:
+  redis_bayliq-api:
