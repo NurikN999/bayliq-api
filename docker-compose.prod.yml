@@ -8,11 +8,13 @@ services:
     volumes:
       - ./:/var/www/bayliq-api
       - ./docker/nginx/prod.conf:/etc/nginx/conf.d/default.conf
+      - /etc/letsencrypt:/etc/letsencrypt:ro
     depends_on:
       - php
       - postgres
     ports:
-      - 8063:80
+      - 80:80
+      - 443:443
 
   php:
     build:
