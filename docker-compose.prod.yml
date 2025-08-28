@@ -12,7 +12,7 @@ services:
       - php
       - postgres
     ports:
-      - 80:80
+      - 8063:80
 
   php:
     build:
